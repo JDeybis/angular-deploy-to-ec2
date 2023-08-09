@@ -32,8 +32,8 @@ jobs:
             USER_NAME : ${{ secrets.USERNAME  }}
             
         run: |
-          ls
-          pwd
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           scp -o StrictHostKeyChecking=no -i private_key -rp ./dist ${USER_NAME}@${HOSTNAME}:/home/ubuntu/
-        
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+            sudo systemctl restart nginx
+
